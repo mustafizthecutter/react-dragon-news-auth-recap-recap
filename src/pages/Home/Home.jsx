@@ -5,12 +5,13 @@ import Navbar from "../Shared/Navbar/Navbar";
 import RightSideNav from "../Shared/RightSideNav/RightSideNav";
 import BreakingNews from "./BreakingNews";
 import NewsCard from "./NewsCard";
-import { useLoaderData } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 
 const Home = () => {
-    const news = useLoaderData();
-    console.log(news);
+
+    const { news } = useContext(AuthContext);
     return (
         <div>
             <Helmet>

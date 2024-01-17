@@ -7,6 +7,14 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
+    const [news, setNews] = useState([]);
+
+    useEffect(() => {
+        fetch('news.json')
+            .then(res => res.json())
+            .then(data => setNews(data))
+    }, [])
+
 
     const createUser = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password);
@@ -31,7 +39,7 @@ const AuthProvider = ({ children }) => {
     }, []);
 
     const authInfo = {
-        user, createUser, logOut, signInUser
+        user, createUser, logOut, signInUser, news
     };
 
 
