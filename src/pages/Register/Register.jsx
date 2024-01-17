@@ -1,21 +1,36 @@
 import { Link } from "react-router-dom";
 import Navbar from "../Shared/Navbar/Navbar";
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
+import { Helmet } from "react-helmet-async";
 
 
 const Register = () => {
 
+    const { createUser } = useContext(AuthContext);
+
     const handleRegister = e => {
         e.preventDefault();
+
         const form = new FormData(e.currentTarget);
         const email = form.get('email');
         const password = form.get('password');
         const img = form.get('photo');
         const name = form.get('name');
+
         console.log(email, password, img, name);
+
+
+        createUser(email, password)
+            .then(result => console.log(result.user))
+            .catch(error => console.error(error.message));
     };
 
     return (
         <div>
+            <Helmet>
+                <title>Dragon News | Register</title>
+            </Helmet>
             <Navbar></Navbar>
             <div className="hero min-h-screen bg-base-200">
                 <div>

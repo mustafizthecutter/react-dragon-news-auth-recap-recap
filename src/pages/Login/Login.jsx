@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Navbar from "../Shared/Navbar/Navbar";
+import { Helmet } from "react-helmet-async";
 
 
 const Login = () => {
@@ -12,6 +13,9 @@ const Login = () => {
     }
     return (
         <div>
+            <Helmet>
+                <title>Dragon News | Login</title>
+            </Helmet>
             <Navbar></Navbar>
             <div className="hero min-h-screen bg-base-200">
                 <div>
