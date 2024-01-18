@@ -13,7 +13,7 @@ const News = () => {
 
 
     const singleNews = news?.find(aNews => aNews._id === id);
-    console.log(singleNews);
+    // console.log(singleNews);
 
     const { title, thumbnail_url, details } = singleNews;
 

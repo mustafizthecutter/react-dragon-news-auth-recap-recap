@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../Shared/Navbar/Navbar";
 import { Helmet } from "react-helmet-async";
 import { useContext } from "react";
@@ -9,16 +9,25 @@ const Login = () => {
 
     const { signInUser } = useContext(AuthContext);
 
-    const handleLogin = e => {
+    const location = useLocation();
+    // console.log(location);
+    const navigate = useNavigate();
+    // console.log(navigate);
+
+    const handleLogin = e => { 
         e.preventDefault();
 
         const form = new FormData(e.currentTarget);
         const email = form.get('email');
         const password = form.get('password');
-        console.log(email, password);
+        // console.log(email, password);
 
         signInUser(email, password)
-            .then(result => console.log(result.user))
+            .then(result => {
+                navigate(location?.state ? location.state : '/')
+                console.log(result.user)
+            })
+
             .catch(error => console.error(error.message));
     };
 
