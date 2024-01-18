@@ -4,27 +4,32 @@ import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWith
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
+
 const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
     const [news, setNews] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('news.json')
+        fetch('/news.json')
             .then(res => res.json())
             .then(data => setNews(data))
-    }, [])
+    }, []);
 
 
     const createUser = (email, password) => {
+        setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
     };
 
     const logOut = () => {
+        setLoading(true);
         return signOut(auth);
     };
 
     const signInUser = (email, password) => {
+        setLoading(true);
         return signInWithEmailAndPassword(auth, email, password);
     }
 
@@ -32,6 +37,7 @@ const AuthProvider = ({ children }) => {
         const unSubsCribe = onAuthStateChanged(auth, (currentUser => {
             setUser(currentUser);
             console.log('current logged in user', currentUser);
+            setLoading(false);
         }));
         return () => {
             unSubsCribe();
@@ -39,7 +45,7 @@ const AuthProvider = ({ children }) => {
     }, []);
 
     const authInfo = {
-        user, createUser, logOut, signInUser, news
+        user, createUser, logOut, signInUser, news, loading
     };
 
 

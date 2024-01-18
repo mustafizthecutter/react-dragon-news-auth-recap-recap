@@ -11,10 +11,11 @@ const News = () => {
     const { id } = useParams();
     const { news } = useContext(AuthContext);
 
+
     const singleNews = news?.find(aNews => aNews._id === id);
     console.log(singleNews);
 
-    const { _id, others_info, total_view, author, title, badge, rating, category_id, thumbnail_url, details, image_url } = singleNews;
+    const { title, thumbnail_url, details } = singleNews;
 
 
     return (
